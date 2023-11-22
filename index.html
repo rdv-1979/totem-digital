@@ -217,7 +217,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     });
     $.ajax({
         
-        url: 'https://newsapi.org/v2/top-headlines?sources=google-news-ar&apiKey=976b796fcf6b4be9baab1f9aaa7f2247',
+        url: 'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=976b796fcf6b4be9baab1f9aaa7f2247',
             success:function(noticias){
                 console.log(noticias);
                 console.log(contador1);
