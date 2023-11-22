@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenidos...</title>
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        #marker {
+        background-image: url('imagenes/eestn1.jpg');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        }
+        #marker2 {
+        background-image: url('imagenes/mibarrio.jpg');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        }
+         
+        .mapboxgl-popup {
+        max-width: 200px;
+        }
+        </style>
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div id="clima" style="width:200px;height:200px;
+                            background-color: azure;">
+                        <img id="icono"><br>
+            
+                    </div>
+                </td>
+                <td>
+                    <div id="clima2" style="width:200px;height:200px;
+                            background-color: azure;">
+                        <img id="icono2"><br>         
+                    </div>
+                </td>
+                <td>
+                    <div id="clima3" style="width:200px;height:200px;
+                            background-color: azure;">
+                        <img id="icono3"><br>         
+                    </div>
+                </td>
+                <td>
+                    <div style="width:300px;height:30px;
+                                align-items: center;justify-content: center;">
+                    <a href="clima.html" target="_blank"
+                       style="text-decoration: none; background: #1b816d;
+                              font-size: 25px;">Buscar clima por ciudad...</a></div>
+                </td>
+            </tr>
+        </tbody>        
+    </table>
+<div id="map" style="width:988px;height: 450px;"></div>
+    <div id="contenedor">
+        <form id="noticias" 
+              style="min-height: 250px;
+                     max-height: 250px;
+                     overflow-y: auto;
+                     color: white;
+                     background-color: rgb(10, 10, 10);">
+        </form>
+        <form id="cotizacion" 
+              style="min-height: 250px;
+                     max-height: 250px;
+                     
+                     background-color: rgb(255, 201, 196);">
+        </form>
+    </div>
+    <div id="map" width="200px;"></div>
+</body>
+
+<script>
+    $('#clima').hide();
+    $('#clima2').hide();
+    $('#clima3').hide();
+    $.ajax({
+       
+       url: '//api.weatherapi.com/v1/forecast.json?key=854e3d737bb24122965174905221305&q=buenos aires&days=3&aqi=no&alerts=no',
+           success:function(data){
+           console.log(data);
+           
+           var icono = data.forecast.forecastday[0].day.condition.icon;
+           $('#clima').append("Pais : "+data.location.country+"<br>");
+           $('#clima').append("Provincia : "+data.location.name+"<br>");
+           $('#clima').append("Día : "+data.forecast.forecastday[0].date+"<br>");
+           $('#clima').append("Temperatura : "+data.forecast.forecastday[0].day.avgtemp_c+" Cº "+'<i class="bx bxs-thermometer"></i>'+"<br>");
+           $('#clima').append("Humedad : "+data.forecast.forecastday[0].day.avghumidity+" % "+'<i class="bx bx-water" ></i>'+"<br>");
+           $('#clima').append("Viento : "+data.forecast.forecastday[0].day.avgvis_km+" Km/h "+'<i class="bx bx-wind"></i>'+"<br>");
+           $('#icono').attr("src", icono);
+           $('#clima').fadeIn(3000);
+           
+           var icono2 = data.forecast.forecastday[1].day.condition.icon;
+           $('#clima2').append("Pais : "+data.location.country+"<br>");
+           $('#clima2').append("Provincia : "+data.location.name+"<br>");
+           $('#clima2').append("Día : "+data.forecast.forecastday[1].date+"<br>");
+           $('#clima2').append("Temperatura : "+data.forecast.forecastday[1].day.avgtemp_c+" Cº "+'<i class="bx bxs-thermometer"></i>'+"<br>");
+           $('#clima2').append("Humedad : "+data.forecast.forecastday[1].day.avghumidity+" % "+'<i class="bx bx-water" ></i>'+"<br>");
+           $('#clima2').append("Viento : "+data.forecast.forecastday[1].day.avgvis_km+" Km/h "+'<i class="bx bx-wind"></i>'+"<br>");
+           $('#icono2').attr("src", icono2);
+           $('#clima2').fadeIn(6000);
+           var icono3 = data.forecast.forecastday[2].day.condition.icon;
+           $('#clima3').append("Pais : "+data.location.country+"<br>");
+           $('#clima3').append("Provincia : "+data.location.name+"<br>");
+           $('#clima3').append("Día : "+data.forecast.forecastday[2].date+"<br>");
+           $('#clima3').append("Temperatura : "+data.forecast.forecastday[2].day.avgtemp_c+" Cº "+'<i class="bx bxs-thermometer"></i>'+"<br>");
+           $('#clima3').append("Humedad : "+data.forecast.forecastday[2].day.avghumidity+" % "+'<i class="bx bx-water" ></i>'+"<br>");
+           $('#clima3').append("Viento : "+data.forecast.forecastday[2].day.avgvis_km+" Km/h "+'<i class="bx bx-wind"></i>'+"<br>");
+           $('#icono3').attr("src", icono3);
+           $('#clima3').fadeIn(9000);
+       }
+   });
+   mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5kYXJpbzE5NzkiLCJhIjoiY2wyeDllcmRjMG5meTNrcWN1dXVyam5oOSJ9.2olP6VrxLWSqn_yPkOHuIQ';
+   const monument = [-62.96508,-35.49456];
+   const mibarrio = [-62.95705,-35.48667];
+   const map = new mapboxgl.Map({
+container: 'map',
+// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+//style: 'mapbox://styles/mapbox/streets-v12',
+
+style:'mapbox://styles/mapbox/satellite-streets-v12',
+center: [-62.98, -35.48],
+center: monument,
+center: mibarrio,
+zoom: 13
+});
+const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+'Escuela de educación técnica secundaria N° 1.'
+);
+const popup2 = new mapboxgl.Popup({ offset: 25 }).setText(
+'Mi barrio.'
+);
+ 
+// create DOM element for the marker
+const el = document.createElement('div');
+el.id = 'marker';
+
+const el2 = document.createElement('div');
+el2.id = 'marker2';
+ 
+// create the marker
+new mapboxgl.Marker(el)
+.setLngLat(monument)
+.setPopup(popup) // sets a popup on this marker
+.addTo(map);
+new mapboxgl.Marker(el2)
+.setLngLat(mibarrio)
+.setPopup(popup2) // sets a popup on this marker
+.addTo(map);
+// Add the control to the map.
+map.addControl(
+new MapboxGeocoder({
+accessToken: mapboxgl.accessToken,
+mapboxgl: mapboxgl
+}));
+map.addControl(
+new MapboxDirections({
+accessToken: mapboxgl.accessToken
+}),
+'top-left'
+);
+map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.FullscreenControl());
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
+
+
+    var arreglo1 = [];
+    var arreglo2 = []; 
+    var arreglo3 = [];
+    var arreglo4 = [];
+    var arreglo5 = [];
+    var contador1 = 0;
+    var contador2 = 0;
+    var contador3 = 0;
+    var contador4 = 0;
+    var contador5 = 0;
+    $.ajax({
+       url: 'https://argentina-monetary-quotes-api.up.railway.app/api/all',
+        success:function(data){
+            console.log(data);
+            $('#cotizacion').append("Nombre : "+data.valores.Dolar.casa44.nombre._text+"<br>");
+            $('#cotizacion').append("Dirección : "+data.valores.Dolar.casa44.direccion._text+"<br>");
+            $('#cotizacion').append("Teléfono : "+data.valores.Dolar.casa44.telefono._text+"<br>");
+            $('#cotizacion').append("Dolar compra: "+data.valores.Dolar.casa44.compra._text+"<br>");
+            $('#cotizacion').append("Dolar venta: "+data.valores.Dolar.casa44.venta._text+"<br>");
+            $('#cotizacion').append("<br>");
+            $('#cotizacion').append("Nombre : "+data.valores.Euro.casa176.nombre._text+"<br>");
+            $('#cotizacion').append("Dirección : "+data.valores.Euro.casa176.direccion._text+"<br>");
+            $('#cotizacion').append("Teléfono : "+data.valores.Euro.casa176.telefono._text+"<br>");
+            $('#cotizacion').append("Euro compra: "+data.valores.Euro.casa176.compra._text+"<br>");
+            $('#cotizacion').append("Euro venta: "+data.valores.Euro.casa176.venta._text+"<br>");
+
+        }
+    });
+    $.ajax({
+        
+        url: 'https://newsapi.org/v2/top-headlines?sources=google-news-ar&apiKey=976b796fcf6b4be9baab1f9aaa7f2247',
+            success:function(noticias){
+                console.log(noticias);
+                console.log(contador1);
+                setInterval(function(){
+                    if(contador1<10){
+
+                        arreglo1[contador1] = noticias.articles[contador1].author;
+                        $('#noticias').append(arreglo1[contador1]+"<br>");
+                        arreglo2[contador2] = noticias.articles[contador2].publishedAt;
+                        $('#noticias').append(arreglo2[contador2]+'<br>');
+                        arreglo3[contador3] = noticias.articles[contador3].title;
+                        $('#noticias').append(arreglo3[contador3]+'<br>');
+                        arreglo4[contador4] = noticias.articles[contador4].source.name;
+                        $('#noticias').append(arreglo4[contador4]+'<br>');
+                        arreglo5[contador5] = '<a href='+noticias.articles[contador5].url+' target="_blank" style="font-size:18px;">Mas informacion...<a>';
+                        $('#noticias').append(arreglo5[contador5]+'<br>');
+                        $('#noticias').append(''+'<br>');
+                        
+                        contador1++;
+                        contador2++;
+                        contador3++;
+                        contador4++;
+                        contador5++;
+         
+                    }
+                    $('#noticias').scrollTop($("#noticias")[0].scrollHeight);
+            },5000);
+            }
+        
+    });
+    
+</script>
+</html>

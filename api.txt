@@ -1,0 +1,57 @@
+api para cotizaciones...
+https://argentina-monetary-quotes-api.up.railway.app/api/all
+
+api geolocalizacion
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5kYXJpbzE5NzkiLCJhIjoiY2wyeDllcmRjMG5meTNrcWN1dXVyam5oOSJ9.2olP6VrxLWSqn_yPkOHuIQ';  
+var map = new mapboxgl.Map({ 
+    container: 'map', 
+    style: 'mapbox://styles/mapbox/streets-v9',  
+    center: [-62.98, -35.48],  
+    zoom: 13 
+}); 
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.FullscreenControl());
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
+map.on('mousemove', function (e) {
+    document.getElementById('coordenadas').innerHTML =
+        JSON.stringify(e.lngLat);
+});
+</script>
+
+api clima
+<script>
+ $.ajax({
+       
+        url: '//api.weatherapi.com/v1/current.json?key=854e3d737bb24122965174905221305&q=buenos aires&aqi=no',
+            success:function(data){
+            console.log(data);
+            var icono = data.current.condition.icon;
+            $('#clima').append("Pais :"+data.location.country+"<br>");
+            $('#clima').append("Provincia :"+data.location.name+"<br>");
+            $('#clima').append("Temperatura :"+data.current.temp_c+" Cº "+"<br>");
+            $('#clima').append("Humedad :"+data.current.humidity+" % "+"<br>");
+            $('#clima').append("Viento :"+data.current.wind_kph+" Km/h "+"<br>");
+            $('#icono').attr("src", icono);
+        }
+    });
+</sript>
+
+api noticias
+revistaeest1rivadavia@gmail.com
+Rdvelazquez@1979
+API_KEY: 976b796fcf6b4be9baab1f9aaa7f2247
+https://newsapi.org/v2/top-headlines?sources=google-news-ar&apiKey=976b796fcf6b4be9baab1f9aaa7f2247
+
+newyorktime
+
+apikey: seQAkY0HB5C3zbtOx9eSSRRUX2EAyGlj
