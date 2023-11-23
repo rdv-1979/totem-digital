@@ -217,7 +217,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     });
     $.ajax({
         
-        url: 'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=38abfbbab7394fba92ebf66fc3761bff',
+        url: 'https://newsapi.org/v2/everything?q=Apple&from=2023-11-23&sortBy=popularity&apiKey=4b2addfc29be4c64b7fdbb6209be56a5',
             success:function(noticias){
                 console.log(noticias);
                 console.log(contador1);
