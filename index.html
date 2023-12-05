@@ -217,22 +217,22 @@ map.addControl(new mapboxgl.GeolocateControl({
     });
     $.ajax({
         
-        url: 'https://newsapi.org/v2/everything?q=Apple&from=2023-11-23&sortBy=popularity&apiKey=4b2addfc29be4c64b7fdbb6209be56a5',
+        url: 'https://newsdata.io/api/1/news?apikey=pub_34191f5b5a71fc04f88276fa4c7244caecf45',
             success:function(noticias){
                 console.log(noticias);
                 console.log(contador1);
                 setInterval(function(){
                     if(contador1<10){
 
-                        arreglo1[contador1] = noticias.articles[contador1].author;
+                        arreglo1[contador1] = noticias.results[contador1].title;
                         $('#noticias').append(arreglo1[contador1]+"<br>");
-                        arreglo2[contador2] = noticias.articles[contador2].publishedAt;
+                        arreglo2[contador2] = noticias.results[contador2].description;
                         $('#noticias').append(arreglo2[contador2]+'<br>');
-                        arreglo3[contador3] = noticias.articles[contador3].title;
+                        arreglo3[contador3] = noticias.articles[contador3].content;
                         $('#noticias').append(arreglo3[contador3]+'<br>');
-                        arreglo4[contador4] = noticias.articles[contador4].source.name;
+                        arreglo4[contador4] = noticias.articles[contador4].country;
                         $('#noticias').append(arreglo4[contador4]+'<br>');
-                        arreglo5[contador5] = '<a href='+noticias.articles[contador5].url+' target="_blank" style="font-size:18px;">Mas informacion...<a>';
+                        arreglo5[contador5] = '<a href='+noticias.results[contador5].link+' target="_blank" style="font-size:18px;">Mas informacion...<a>';
                         $('#noticias').append(arreglo5[contador5]+'<br>');
                         $('#noticias').append(''+'<br>');
                         
