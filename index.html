@@ -228,9 +228,9 @@ map.addControl(new mapboxgl.GeolocateControl({
                         $('#noticias').append(arreglo1[contador1]+"<br>");
                         arreglo2[contador2] = noticias.results[contador2].link;
                         $('#noticias').append(arreglo2[contador2]+'<br>');
-                        arreglo3[contador3] = noticias.articles[contador3].pubDate;
+                        arreglo3[contador3] = noticias.results[contador3].pubDate;
                         $('#noticias').append(arreglo3[contador3]+'<br>');
-                        arreglo4[contador4] = noticias.articles[contador4].source_id;
+                        arreglo4[contador4] = noticias.results[contador4].source_id;
                         $('#noticias').append(arreglo4[contador4]+'<br>');
                         arreglo5[contador5] = '<a href='+noticias.results[contador5].link+' target="_blank" style="font-size:18px;">Mas informacion...<a>';
                         $('#noticias').append(arreglo5[contador5]+'<br>');
